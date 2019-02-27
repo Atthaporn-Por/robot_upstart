@@ -65,6 +65,8 @@ def get_argument_parser():
                    help="Specify provider if the autodetect fails to identify the correct provider")
     p.add_argument("--symlink", action='store_true',
                    help="Create symbolic link to job launch files instead of copying them.")
+    p.add_argument("--wait", type=str, metavar="[true:false]",
+                   help="Specify a node have to wait the rosmaster is run before")
     return p
 
 
@@ -113,6 +115,8 @@ def main():
         provider = providers.Systemd
     if args.symlink:
         j.symlink = True
+    if args.wait == 'true' or args.wait == 'True':
+        j.roslaunch_wait = True
 
     j.install(Provider=provider)
 
