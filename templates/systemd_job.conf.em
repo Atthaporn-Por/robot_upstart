@@ -34,6 +34,8 @@ After=network.target
 [Service]
 Type=simple
 ExecStart=/usr/sbin/@(name)-start
-
+ExecStartPre=/bin/sleep 15
+Restart=always
+RestartSec=0s
 [Install]
-WantedBy=multi-user.target
+WantedBy=user@.target
